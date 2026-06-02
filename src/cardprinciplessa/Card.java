@@ -11,7 +11,7 @@ package cardprinciplessa;
 public class Card {
     
     public enum Suit {HEARTS, SPADES, CLUBS,DIAMONDS}
-    public enum Value{ACE,TWO,THREE,FOUR,FIVE,SIX,SEVENEIGHT,NINE,TEN,JACK,QUEEN,KING,JOKER}
+    public enum Value{ACE,TWO,THREE,FOUR,FIVE,SIX,SEVENEIGHT,NINE,TEN,JACK,QUEEN,KING}
     
     private Value value;
     private Suit suit;
