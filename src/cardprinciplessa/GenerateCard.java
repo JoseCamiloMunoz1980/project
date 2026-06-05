@@ -8,6 +8,7 @@ import java.util.Random;
 /**
  *
  * @author pepecamilo
+ * @author nonso
  */
 public class GenerateCard {
     
