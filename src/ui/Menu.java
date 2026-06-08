@@ -7,8 +7,8 @@ import java.util.Scanner;
 import game.BlackjackGameManager;
 import model.Hand;
 import rules.BlackjackScoreCalculator;
-import model.HumanPlayer;
 import model.HandStatus;
+import model.Player;
 import rules.BlackjackRules;
 /**
  *
@@ -60,7 +60,6 @@ public class Menu {
 
     private void showMainMenu() {
 
-        System.out.println();
         System.out.println(
                 "====================");
         System.out.println(
@@ -82,8 +81,7 @@ public class Menu {
     int playerCount;
 
     do {
-
-        System.out.println();
+        
         System.out.print(
                 "Enter number of players (1-7): ");
 
@@ -102,8 +100,7 @@ public class Menu {
     gameManager =
             new BlackjackGameManager(
                     playerCount);
-
-    System.out.println();
+    
     System.out.println(
             "Table created successfully.");
     System.out.println(
@@ -116,8 +113,7 @@ public class Menu {
 }
 
     private void showRules() {
-
-        System.out.println();
+        
         System.out.println(
                 "====================");
         System.out.println(
@@ -228,7 +224,6 @@ public class Menu {
 
     while (!backToMainMenu) {
 
-        System.out.println();
         System.out.println(
                 "====================");
         System.out.println(
@@ -273,7 +268,6 @@ public class Menu {
     
     private void displayCurrentTable() {
 
-    System.out.println();
     System.out.println(
             "====================");
     System.out.println(
@@ -288,8 +282,6 @@ public class Menu {
                     .getPlayers()
                     .size();
             i++) {
-
-        System.out.println();
 
         System.out.println(
                 "--------------------");
@@ -319,15 +311,13 @@ public class Menu {
     
     private void displayDealer() {
 
-    System.out.println();
     System.out.println(
             "Dealer");
 
     Hand dealerHand =
-            gameManager
-                    .getDealer()
-                    .getHands()
-                    .get(0);
+        gameManager
+                .getDealer()
+                .getMainHand();
 
     if (dealerHand
             .getCards()
@@ -345,8 +335,6 @@ public class Menu {
     
     private void displayHand(Hand hand,int handNumber) {
 
-    System.out.println();
-
     System.out.println("Hand "+ handNumber);
 
     for (var card : hand.getCards()) {
@@ -359,7 +347,7 @@ public class Menu {
     
     private void playPlayerTurns() {
 
-    for (HumanPlayer player : gameManager.getPlayers()) {
+    for (Player player : gameManager.getPlayers()) {
 
         int handIndex = 0;
 
@@ -378,7 +366,7 @@ public class Menu {
 }
     
     private void playHand(
-        HumanPlayer player,
+        Player player,
         Hand hand,
         int handNumber) {
 
@@ -391,7 +379,6 @@ public class Menu {
     if (BlackjackRules
             .isNaturalBlackjack(hand)) {
 
-        System.out.println();
         System.out.println(player.getName()
                         + " - Hand "
                         + handNumber
@@ -409,7 +396,6 @@ public class Menu {
             && hand.getStatus()
             == HandStatus.ACTIVE) {
 
-        System.out.println();
         System.out.println(
                 "====================");
 
@@ -519,8 +505,6 @@ public class Menu {
    
    private void showDealerFinalHand() {
 
-    System.out.println();
-
     System.out.println(
             "====================");
 
@@ -531,10 +515,9 @@ public class Menu {
             "====================");
 
     Hand dealerHand =
-            gameManager
-                    .getDealer()
-                    .getHands()
-                    .get(0);
+        gameManager
+                .getDealer()
+                .getMainHand();
 
     for (var card :
             dealerHand.getCards()) {
@@ -551,8 +534,6 @@ public class Menu {
    
    private void showResults() {
 
-    System.out.println();
-
     System.out.println(
             "====================");
 
@@ -562,7 +543,7 @@ public class Menu {
     System.out.println(
             "====================");
 
-    for (HumanPlayer player :
+    for (Player player :
             gameManager.getPlayers()) {
 
         int handNumber = 1;
@@ -599,8 +580,6 @@ public class Menu {
     boolean exitMenu = false;
 
     while (!exitMenu) {
-
-        System.out.println();
 
         System.out.println(
                 "====================");
@@ -674,7 +653,7 @@ public class Menu {
   
   private boolean allPlayerHandsBust() {
 
-    for (HumanPlayer player :
+    for (Player player :
             gameManager.getPlayers()) {
 
         for (Hand hand :

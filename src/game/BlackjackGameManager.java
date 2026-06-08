@@ -10,9 +10,10 @@ import java.util.List;
 import model.Dealer;
 import model.Deck;
 import model.Hand;
+import model.HumanPlayer;
 import model.HandOrigin;
 import model.HandStatus;
-import model.HumanPlayer;
+import model.Player;
 import model.Rank;
 import rules.BlackjackRules;
 import rules.BlackjackScoreCalculator;
@@ -23,7 +24,7 @@ import rules.Result;
  */
 public class BlackjackGameManager {
 
-private final List<HumanPlayer> players;
+private final List<Player> players;
 private final Dealer dealer;
 private final Deck deck;
 
@@ -40,8 +41,8 @@ public BlackjackGameManager(
     for (int i = 1; i <= playerCount; i++) {
 
         players.add(
-                new HumanPlayer(
-                        "Player " + i));
+        new HumanPlayer(
+                "Player " + i));
     }
 
     this.dealer = new Dealer();
@@ -69,7 +70,7 @@ public void startRound() {
 
 private void createInitialHands() {
 
-    for (HumanPlayer player : players) {
+    for (Player player : players) {
 
         player.addHand(
                 new Hand(
@@ -85,7 +86,7 @@ private void dealInitialCards() {
 
     for (int i = 0; i < 2; i++) {
 
-        for (HumanPlayer player : players) {
+        for (Player player : players) {
 
             player.getHands()
                     .get(0)
@@ -93,10 +94,7 @@ private void dealInitialCards() {
                             deck.drawCard());
         }
 
-        dealer.getHands()
-                .get(0)
-                .addCard(
-                        deck.drawCard());
+        dealer.getMainHand().addCard(deck.drawCard());
     }
 }
 
@@ -147,7 +145,7 @@ public void processStand(
 }
 
 public void processSplit(
-        HumanPlayer player,
+        Player player,
         Hand hand) {
 
     if (player == null) {
@@ -216,8 +214,7 @@ public void playDealerTurn() {
         return;
     }
 
-    Hand dealerHand =
-            dealer.getHands().get(0);
+    Hand dealerHand = dealer.getMainHand();
 
     while (!BlackjackRules
             .isBust(dealerHand)) {
@@ -249,7 +246,7 @@ public void playDealerTurn() {
 
 private boolean allPlayerHandsBust() {
 
-    for (HumanPlayer player : players) {
+    for (Player player : players) {
 
         for (Hand hand :
                 player.getHands()) {
@@ -274,21 +271,21 @@ public Result determineResult(
     }
 
     return BlackjackRules
-            .determineResult(
-                    playerHand,
-                    dealer.getHands().get(0));
+        .determineResult(
+                playerHand,
+                dealer.getMainHand());
 }
 
 public void resetRound() {
 
-    for (HumanPlayer player : players) {
+    for (Player player : players) {
         player.resetForNewRound();
     }
 
     dealer.resetForNewRound();
 }
 
-public List<HumanPlayer> getPlayers() {
+public List<Player> getPlayers() {
 
     return Collections
             .unmodifiableList(

@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model;
-
 /**
  *
  * @author pepecamilo
@@ -14,6 +13,10 @@ private static final String DEALER_NAME = "Dealer";
 
 public Dealer() {
     super(DEALER_NAME);
+}
+public Hand getMainHand() {
+
+    return getHands().get(0);
 }
     
 }
